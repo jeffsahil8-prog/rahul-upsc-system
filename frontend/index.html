@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body style="background:black;color:white;text-align:center">
+
+<h1>RAHUL DEV</h1>
+
+<button onclick="login()">Login</button>
+<button onclick="load()">Load Data</button>
+
+<div id="data"></div>
+
+<script>
+let token = "";
+
+async function login() {
+  const res = await fetch("https://YOUR-BACKEND.onrender.com/api/login", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      name:"Rahul Dev",
+      email:"rahul@gmail.com"
+    })
+  });
+
+  const data = await res.json();
+  token = data.token;
+}
+
+async function load() {
+  const res = await fetch("https://YOUR-BACKEND.onrender.com/api/user", {
+    headers: { Authorization: token }
+  });
+
+  const data = await res.json();
+  document.getElementById("data").innerText = data.progress;
+}
+</script>
+
+</body>
+</html>
